@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-config
+  namespace: webapp-demo
+data:
+  APP_ENV: "production"
+  APP_DEBUG: "false"
+  REDIS_HOST: "redis.webapp-demo.svc.cluster.local"
+  REDIS_PORT: "6379"

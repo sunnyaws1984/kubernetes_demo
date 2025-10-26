@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webapp
+  namespace: webapp-demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: webapp
+  template:
+    metadata:
+      labels:
+        app: webapp
+    spec:
+      containers:
+      - name: webapp
+        image: python:3.11-slim
+        command:
+        - python3
+        - -c
+        - |
+          from http.server import HTTPServer, BaseHTTPRequestHandler
+          class H(BaseHTTPRequestHandler):
+              def do_GET(self):
+                  self.send_response(200)
+                  self.send_header('Content-type','text/plain')
+                  self.end_headers()
+                  self.wfile.write(b'Hello World from WebApp')
+          HTTPServer(('0.0.0.0',8080), H).serve_forever()
+        ports:
+        - containerPort: 8080
