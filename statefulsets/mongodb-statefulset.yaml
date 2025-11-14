@@ -26,6 +26,6 @@ spec:
           command:
             - "mongod"
             - "--replSet"
-            - "rs0"
+            - "rs0"            # tells MongoDB to run as part of a replica set (HA)
             - "--bind_ip_all"  # Allow connections from any IP
   volumeClaimTemplates: []  # No persistent storage for this demo

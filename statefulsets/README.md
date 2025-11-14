@@ -1,8 +1,20 @@
 # MongoDB StatefulSet Demo (No Persistent Storage)
 
-This is a **single-file demo** to deploy MongoDB as a **Kubernetes StatefulSet** with **no persistent storage**.  
-You can copy-paste the commands directly into your terminal to deploy and connect to MongoDB.
+Advantages of StatefulSets in Kubernetes:
+*Stable, Unique Network Identities
+*Each pod gets a stable hostname (e.g., mongodb-0, mongodb-1).
+*Other pods/services can reliably connect to it using this hostname.
+*Pods are created in order: pod-0 → pod-1 → pod-2
+*Pods are terminated or updated in reverse order.
+*Helps applications that rely on startup/shutdown sequences
+*Each pod keeps its name and volume even after rescheduling
+*Critical for applications that need stable identities to replicate data.
 
+StatefulSets are perfect for databases (MongoDB, MySQL, Cassandra), queues (Kafka, RabbitMQ), and any clustered apps that require:
+
+Stable identity
+Persistent storage
+Ordered deployment & update
 ---
 
 ##  Deploy MongoDB
@@ -54,6 +66,14 @@ All pods are Reachable via below URL:
     mongodb-0.mongodb.default.svc.cluster.local
     mongodb-1.mongodb.default.svc.cluster.local
     mongodb-2.mongodb.default.svc.cluster.local
+
+## Access DB
+ kubectl exec -it mongodb-0 -- mongosh "mongodb://mongodb-0.mongodb:27017"
+use myDatabase
+db.myCollection.insertOne({ name: "Mark", age: 30 })
+show collections
+db.myCollection.find()
+show dbs
 
 - Delete the StatefulSet and headless service when done:
 
