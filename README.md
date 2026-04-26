@@ -40,7 +40,7 @@ kubectl get secrets -n webapp-demo
 ### 4️⃣ Create Persistent Volume & Claim (for Redis)
 
 ```bash
-kubectl apply -f pv.yml
+kubectl apply -f pv.yml -n webapp-demo
 kubectl apply -f pvc.yml -n webapp-demo
 kubectl get pv,pvc -n webapp-demo
 ```
