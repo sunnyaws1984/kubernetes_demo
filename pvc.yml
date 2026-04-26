@@ -4,8 +4,9 @@ metadata:
   name: redis-pvc
   namespace: webapp-demo
 spec:
+  storageClassName: ""
   accessModes:
-  - ReadWriteOnce
+    - ReadWriteOnce
   resources:
     requests:
       storage: 2Gi
