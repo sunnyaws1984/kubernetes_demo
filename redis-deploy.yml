@@ -9,14 +9,14 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: redis
+      app: redis-peter
   template:
     metadata:
       labels:
-        app: redis
+        app: redis-peter
     spec:
       containers:
-      - name: redis
+      - name: redis-name
         image: redis:7
         ports:
         - containerPort: 6379
